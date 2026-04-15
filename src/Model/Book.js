@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 
 const ratingSchema = new mongoose.Schema(
   {
-    userId: { type: String, required: true },
+    userId: { type: Number, required: true },
     grade:  { type: Number, required: true, min: 0, max: 5 },
   },
   { _id: false } // pas d'_id généré pour chaque note
@@ -15,7 +15,7 @@ const ratingSchema = new mongoose.Schema(
 const bookSchema = new mongoose.Schema(
   {
     userId: {
-      type:     String,
+      type:     Number,
       required: [true, 'userId is required'],
     },
     title: {
