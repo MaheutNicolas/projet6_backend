@@ -28,12 +28,6 @@ exports.createBook = (req, res, next) => {
    .catch(error => { res.status(400).json( { error })})
 };
 
-exports.updateBook = function(req, res){
-    Book.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id })
-        .then(() => res.status(200).json({ message: 'Livre modifié !'}))
-        .catch(error => res.status(400).json({ error }));
-}
-
 exports.updateBook = (req, res, next) => {
     const object = req.file ? {
         ...JSON.parse(req.body.book),
@@ -76,12 +70,26 @@ exports.deleteBook = function(req, res){
         });
 }
 
+exports.getBestBooks = async (req, res) => {
+  try {
+    const books = await Book.find()
+      .sort({ averageRating: -1 })
+      .limit(3);
 
-
-exports.getBestRatings = function(req, res){
-    
-}
+    res.status(200).json(books);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 exports.postRating =  function(req, res){
-    
+    Book.findOne({ _id: req.params.id})
+        .then(book => {
+            book.addOrUpdateRating(req.body.userId, req.body.rating);
+            book.save()
+            res.status(200).json(book);
+        })
+        .catch( error => {
+            res.status(500).json({ error });
+        });
 }

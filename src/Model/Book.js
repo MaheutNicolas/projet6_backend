@@ -83,11 +83,6 @@ bookSchema.methods.addOrUpdateRating = function (userId, grade) {
   this.updateAverageRating();
 };
 
-// ─── Index ────────────────────────────────────────────────────────────────
-
-bookSchema.index({ userId: 1 });
-bookSchema.index({ genre: 1 });
-bookSchema.index({ averageRating: -1 });
 
 // ─── Export ───────────────────────────────────────────────────────────────
 

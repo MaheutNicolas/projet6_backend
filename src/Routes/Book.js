@@ -6,11 +6,11 @@ const auth = require('../Middleware/Auth');
 const multer = require('../Middleware/Multer');
 
 router.get('/', bookCtrl.getAllBook);
+router.get('/bestrating', bookCtrl.getBestBooks);
 router.get('/:id', bookCtrl.getBookById);
-router.get('/bestrating', bookCtrl.getBestRatings);
 router.post('/', auth, multer, bookCtrl.createBook);
 router.put('/:id', auth, multer, bookCtrl.updateBook);
 router.delete('/:id', auth, bookCtrl.deleteBook);
-router.delete('/:id/rating', auth, bookCtrl.postRating);
+router.post('/:id/rating', auth, bookCtrl.postRating);
 
 module.exports = router;
