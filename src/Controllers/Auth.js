@@ -3,8 +3,6 @@ const User     = require('../Model/User');
 const jwt      = require('jsonwebtoken');
 
 exports.signup = async (req, res, next) => {
-    console.log('Content-Type:', req.headers['content-type']);
-    console.log('Body:', req.body);
     bcrypt.hash(req.body.password, 10)
         .then(hash => {
             const user = new User({
@@ -20,8 +18,6 @@ exports.signup = async (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
-    console.log('Content-Type:', req.headers['content-type']);
-    console.log('Body:', req.body);
    User.findOne({ email: req.body.email })
        .then(user => {
            if (!user) {
