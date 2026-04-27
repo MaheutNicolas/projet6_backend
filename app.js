@@ -2,7 +2,7 @@ const express = require("express");
 const http = require('http');
 const app = express();
 const path = require('path');
-const helmet = require('helmet');x
+const helmet = require('helmet');
 const connectDB = require('./src/DB/Mongo');
 const bookRoutes = require('./src/Routes/Book');
 const authRoutes = require('./src/Routes/Auth');
@@ -10,7 +10,9 @@ const authRoutes = require('./src/Routes/Auth');
 const port = normalizePort(process.env.PORT || '4000');
 
 connectDB();
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: 'cross-origin' }
+}));
 require('./src/Middleware/Cors')(app);
 
 app.use(express.json()); 
