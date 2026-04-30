@@ -4,7 +4,7 @@ exports.validateAuth = (req, res, next) => {
   const clean = sanitizeAuth(req.body);
   const error = validateAuth(clean);
   if (error) return res.status(400).json({ message: error });
-
+  
   req.body = clean;
   next();
 };

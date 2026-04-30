@@ -14,9 +14,7 @@ exports.getBookById = function(req, res){
 }
 
 exports.createBook = (req, res, next) => {
-   const object = JSON.parse(req.body.book);
-   delete object._id;
-   delete object._userId;
+   const object = req.body;
    const book = new Book({
        ...object,
        userId: req.auth.userId,
@@ -31,11 +29,10 @@ exports.createBook = (req, res, next) => {
 
 exports.updateBook = (req, res, next) => {
     const object = req.file ? {
-        ...JSON.parse(req.body.book),
+        ...req.body,
         imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } : { ...req.body };
     
-    delete object._userId;
     Book.findOne({_id: req.params.id})
         .then((book) => {
             if (book.userId != req.auth.userId) {

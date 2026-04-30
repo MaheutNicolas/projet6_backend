@@ -8,8 +8,8 @@ const { upload, optimizeImage } = require('../Middleware/MulterSharp');
 router.get('/', bookCtrl.getAllBook);
 router.get('/bestrating', bookCtrl.getBestBooks);
 router.get('/:id', bookCtrl.getBookById);
-router.post('/', auth, validateCreateBook, upload, optimizeImage, bookCtrl.createBook);
-router.put('/:id', auth, validateUpdateBook, upload, optimizeImage, bookCtrl.updateBook);
+router.post('/', auth, upload, validateCreateBook, optimizeImage, bookCtrl.createBook);
+router.put('/:id', auth, upload, validateUpdateBook, optimizeImage, bookCtrl.updateBook);
 router.delete('/:id', auth, bookCtrl.deleteBook);
 router.post('/:id/rating', auth, validateRating, bookCtrl.postRating);
 
